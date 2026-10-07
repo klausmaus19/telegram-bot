@@ -37,10 +37,15 @@ async def post_to_groups():
 async def main():
     await client.start()
 
+    # Telegram-Gruppen und Chats einmal laden
+    await client.get_dialogs()
+
     print("Telegram-Bot gestartet!", flush=True)
 
+    # Sofort einmal posten
     await post_to_groups()
 
+    # Danach alle X Minuten
     while True:
         await asyncio.sleep(INTERVAL_MINUTES * 60)
         await post_to_groups()
