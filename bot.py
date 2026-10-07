@@ -10,7 +10,8 @@ GROUPS = os.environ.get("GROUP_IDS", "").split(",")
 MESSAGE = os.environ.get("POST_TEXT", "")
 INTERVAL_MINUTES = int(os.environ.get("INTERVAL_MINUTES", "10"))
 
-SESSION = "/data/telegram"
+# Telegram-Session im normalen Projektordner
+SESSION = "telegram"
 
 client = TelegramClient(SESSION, API_ID, API_HASH)
 
@@ -35,8 +36,10 @@ async def main():
 
     print("Telegram-Bot gestartet!", flush=True)
 
+    # Sofort einmal posten
     await post_to_groups()
 
+    # Danach regelmäßig posten
     while True:
         await asyncio.sleep(INTERVAL_MINUTES * 60)
         await post_to_groups()
